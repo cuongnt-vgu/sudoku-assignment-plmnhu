@@ -92,7 +92,7 @@ void set_candidates(Cell *cell, int *candidates, int size)
         cell->candidates[i] = 0;
     }
 
-    cell->num_candidates = 0;
+    cell->num_candidates =  0;
 
     // set candidate list
     for (int i = 0; i < size; i++)

@@ -1,8 +1,4 @@
 #include <assert.h>
-<<<<<<< HEAD
-=======
-#include <curses.h>
->>>>>>> 691fb2b (Initial commit)
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
