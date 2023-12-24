@@ -91,7 +91,7 @@ int hidden_singles(SudokuBoard *p_board)
                                             }
                                         p_board->data[i][m].fixed =true;
                                     }
-
+                                }
                             }
                         for ( m=0;m<9;m++) // xu ly dongcot
                             {
@@ -108,24 +108,26 @@ int hidden_singles(SudokuBoard *p_board)
                                             }
                                         p_board->data[m][j].fixed =true;
                                     }
-
+                                }
                             }                        
                         for ( m=0;m<9;m++) // xu ly box
                             {
-                                if (cell[k] ==1)
+                                Cell cell2=*p_board->p_boxes[(i / 3) * 3 + j / 3][m] ;
+                               
+                                if (cell2.candidates[k] ==1)
                                 {
-                                    cell.candidates[k] = 0;
-                                    cell.num_candidates--;
-                                    if (cell.num_candidates==1)
+                                    cell2.candidates[k] = 0;
+                                    cell2.num_candidates--;
+                                    if (cell2.num_candidates==1)
                                     {
                                         for (q=0;q<9;q++)
-                                            if(cell.candidates[q]==1)
+                                            if(cell2.candidates[q]==1)
                                             {
-                                                cell.value =q+1;
+                                                cell2.value =q+1;
                                             }
-                                        Cell cell=*p_board->p_boxes[box][l] ;.fixed =true;
+                                        cell2.fixed =true;
                                     }
-
+                                }
                             }
                        
                         
@@ -143,11 +145,13 @@ int hidden_singles(SudokuBoard *p_board)
                 } //for (int k = 0; k < 9; k++) 
             }
         }
+        }
     }
-    
-    }
+
     return count;
 }
+    
+
 int hidden_singles2(SudokuBoard *p_board)
 {
     int count = 0;
