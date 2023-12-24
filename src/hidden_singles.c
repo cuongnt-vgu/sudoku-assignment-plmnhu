@@ -10,35 +10,37 @@ int hidden_singles(SudokuBoard *p_board)
     int count = 0;
     int l=0;
     int i,j,candidate;
-    bool found;
+    bool found, found_d, found_c, found_x;
     for ( i = 0; i < 1; i++) 
     {
-        for (j = 0; j < 1; j++) 
+        for (j = 3; j < 4; j++) 
         {
             if (p_board->data[i][j].num_candidates > 1) 
             {
                 for (int k = 0; k < 9; k++) 
                 {
                      candidate = p_board->data[i][j].candidates[k];
-                     printf ("%d \n", candidate);
+                    
                     found = true;
                     if (candidate !=0)
                     {
-                     printf ("%d \n", k);
-                     found = false;
+                     
+                    found = false;
                     
                     for (l = 0; l < 9; l++) 
-                    
                         if ((l != j) &&
                             (p_board->data[i][l].num_candidates > 1) &&
                             (p_board->data[i][l].fixed == false) &&
                             (p_board->data[i][l].candidates[k]>0)) 
                         {
                             found = true;
-                            //printf ("%d  %d %d  %d \n", k, candidate, i,l);
+                            printf ("tim thay tren dong %d  %d %d  \n", k,  i, j);
                             break;
 
                         }
+                    if (found)
+                    {
+                    found = false;
                     for (l = 0; l < 9; l++) 
                         if ((l != i) &&
                             (p_board->data[l][j].num_candidates > 1) &&
@@ -46,10 +48,12 @@ int hidden_singles(SudokuBoard *p_board)
                             (p_board->data[l][j].candidates[k]>0)) 
                         {
                             found = true;
-                            //printf ("%d  %d %d  %d \n", k, candidate, l,j);
+                            printf (" tim thay tren cot %d  %d %d  \n", k , l,j);
                             break;
                         }
-                
+                    if (found)
+                    {
+                    found = false;                            
                     int box = (i / 3) * 3 + j / 3;
                     int box_cell = (i % 3) * 3 + j % 3;
                     for (l = 0; l < 9; l++) 
@@ -62,21 +66,22 @@ int hidden_singles(SudokuBoard *p_board)
                             (cell.candidates[k]>0)) 
                         {
                             found = true;
-                            //printf ("%d  %d %d  %d \n", k, candidate, l,j);
+                            printf ("tim thay tren box   %d %d  %d \n", k, box , box_cell);
                             break;
                         }
-                        
-
+                    }
+                    }
                     }
                      
-                   
-     */          
+               
+             
                     } //if (candidate !=0)
                 
                    // printf ("%d  %d %d  %d \n", k, candidate, i,l);
-                   // printf ("%d  %d %d  %d \n", k, candidate,l,j);
+                    
                     if (!found) 
                     {
+                        printf ("khong tim thay %d  %d  %d \n", k,j,j);
                         p_board->data[i][j].value = candidate;
                         p_board->data[i][j].num_candidates = 1;
                     //    p_board->data[i][j].candidates[0] = candidate;
