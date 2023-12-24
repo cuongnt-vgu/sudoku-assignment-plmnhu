@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 
+
 int hidden_singles(SudokuBoard *p_board)
 {
     
@@ -49,20 +50,22 @@ int hidden_singles(SudokuBoard *p_board)
                             break;
                         }
                 
-  /*              
-                     for (l = 0; l < 9; l++) 
+                    int box = (i / 3) * 3 + j / 3;
+                    int box_cell = (i % 3) * 3 + j % 3;
+                    for (l = 0; l < 9; l++) 
                     {
-                        int box_row = (i / 3) * 3 + j / 3;
-                        int box_col = (i % 3) * 3 + j % 3;
-                        if ((box_row != i) && (box_col != j) &&
-                            (p_board->data[box_row][box_col].num_candidates > 1) &&
-                            (p_board->data[box_row][box_col].fixed == false) &&
-                            (p_board->data[box_row][box_col].candidates[k]>0)) 
+                        Cell cell=*p_board->p_boxes[box][l] ;
+                        
+                        if ((l != box_cell) &&
+                            (cell.num_candidates > 1) &&
+                            (cell.fixed == false) &&
+                            (cell.candidates[k]>0)) 
                         {
                             found = true;
-                            //printf ("%d  %d %d  %d \n", k, candidate, box_row, box_col);
+                            //printf ("%d  %d %d  %d \n", k, candidate, l,j);
                             break;
                         }
+                        
 
                     }
                      
