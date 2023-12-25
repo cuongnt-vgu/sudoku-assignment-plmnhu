@@ -237,6 +237,12 @@ void sosanhhaio(Cell cell1, Cell cell2, int *So_gtgn, int *Day_gtgn)
     }
         *So_gtgn = count ;
 }
+void r_c_box(int row, int col , int *n_box, int *n_cell )
+{
+    
+    *n_box = (row / 3) * 3 + col / 3;
+    *n_cell = (row % 3) * 3 + col % 3;
+}
 
 
 

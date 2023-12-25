@@ -47,3 +47,8 @@ int check_solved_cells(SudokuBoard *p_board, Cell ***p_solved_cells);
 bool show_possible(SudokuBoard *p_board, Cell **p_solved_cells, int counter);
 void free_sudoku(SudokuBoard *p_board);
 void sosanhhaio(Cell cell1, Cell cell2, int *So_gtgn, int *Day_gtgn);
+void r_c_box(int row, int col , int *n_box, int *n_cell );
+void  XuLy_Mot_cell(SudokuBoard *p_board,int row, int col,int *count);
+int  XuLy_cell_row(SudokuBoard *p_board,int row,int col,int i,int j);
+int  XuLy_cell_col(SudokuBoard *p_board,int row,int col,int i,int j);
+int  XuLy_cell_box(SudokuBoard *p_board,int row,int col,int i,int j);
