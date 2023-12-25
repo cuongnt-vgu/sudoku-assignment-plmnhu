@@ -32,7 +32,7 @@ int hidden_singles(SudokuBoard *p_board)
                             (p_board->data[i][l].candidates[k]>0)) 
                         {
                             found = true;
-                            printf ("tim thay tren dong %d  %d %d  \n", k,  i, j);
+                         //   printf ("tim thay tren dong %d  %d %d  \n", k,  i, j);
                             break;
 
                         }
@@ -44,7 +44,7 @@ int hidden_singles(SudokuBoard *p_board)
                             (p_board->data[l][j].candidates[k]>0)) 
                         {
                             found = true;
-                            printf (" tim thay tren cot %d  %d %d  \n", k , l,j);
+                          //  printf (" tim thay tren cot %d  %d %d  \n", k , l,j);
                             break;
                         }
                     if (found)
@@ -60,7 +60,7 @@ int hidden_singles(SudokuBoard *p_board)
                             (cell.candidates[k]>0)) 
                         {
                             found = true;
-                            printf ("tim thay tren box   %d %d  %d \n", k, box , box_cell);
+                           // printf ("tim thay tren box   %d %d  %d \n", k, box , box_cell);
                             break;
                         }
                     }
@@ -69,7 +69,7 @@ int hidden_singles(SudokuBoard *p_board)
                    // int m;                   
                     if (!found) 
                     {
-                        printf ("khong tim thay %d  %d  %d \n", k,i,j);
+                       // printf ("khong tim thay %d  %d  %d \n", k,i,j);
                         //   for ( m=0;m<9;m++)
                           //  p_board->data[i][j].candidates[m] = 0;
 
@@ -77,7 +77,7 @@ int hidden_singles(SudokuBoard *p_board)
                         p_board->data[i][j].value = k+1;
                         p_board->data[i][j].num_candidates = 1;
                     //    p_board->data[i][j].candidates[0] = candidate;
-                        p_board->data[i][j].fixed = true;
+                      //  p_board->data[i][j].fixed = true;
                         count++;
                         break;
                     }
@@ -90,30 +90,20 @@ int hidden_singles(SudokuBoard *p_board)
     {
         for (j = 0; j < BOARD_SIZE; j++) 
         {
-            if (p_board->data[i][j].fixed) 
+            if (p_board->data[i][j].num_candidates==1) 
             {
                 for (int k = 0; k < BOARD_SIZE; k++) 
                 {
                     if (k!= p_board->data[i][j].value-1)
-                      p_board->data[i][j].cand idates[k]=0;
+                      p_board->data[i][j].candidates[k]=0;
                 }
             }
         }
     }
-
-    return count;
-}
-    
-
-int hidden_singles2(SudokuBoard *p_board)
-{
-    int count = 0;
-   // int l=0;
-    int i,j;
-   
-    for ( i = 0; i < 1; i++) 
+    /*
+    i=1;//for ( i = 0; i < 1; i++) 
     {
-        for (j = 5; j < 6; j++) 
+        j=0;//for (j = 5; j < 6; j++) 
         {
              for (int k = 0; k < 9; k++) 
                 {
@@ -126,7 +116,35 @@ int hidden_singles2(SudokuBoard *p_board)
             
         }
     }
-printf("\n");
+    */
+
+    return count;
+}
+    
+
+int hidden_single2(SudokuBoard *p_board)
+{
+    int count = 0;
+   // int l=0;
+    int i,j;
+   
+    i=1;//for ( i = 0; i < 1; i++) 
+    {
+        j=0;//for (j = 5; j < 6; j++) 
+        {
+             for (int k = 0; k < 9; k++) 
+                {
+                     printf("%d  ", p_board->data[i][j].candidates[k]);
+                }
+                printf("\n");
+            printf("%d  %d  %d  ", p_board->data[i][j].row_index,p_board->data[i][j].col_index , p_board->data[i][j].box_index);
+            printf("%d  %d  %d  \n", p_board->data[i][j].num_candidates,p_board->data[i][j].value, p_board->data[i][j].fixed );
+            
+            
+        }
+    }
+    /*
+    printf("\n");
     Cell cell=  *p_board->p_boxes[3][2] ;
     
     //Cell cell=  *p_board->p_boxes[(i / 3) * 3 + j / 3][(i % 3) * 3 + j % 3] ;
@@ -144,7 +162,7 @@ printf("\n");
             
             
         
-            
+    */   
     return count;
 }
 
