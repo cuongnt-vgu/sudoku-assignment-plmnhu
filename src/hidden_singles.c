@@ -29,8 +29,6 @@ int hidden_singles(SudokuBoard *p_board)
                     
                     for (l = 0; l < 9; l++) 
                         if ((l != j) &&
-                            (p_board->data[i][l].num_candidates > 1) &&
-                            (p_board->data[i][l].fixed == false) &&
                             (p_board->data[i][l].candidates[k]>0)) 
                         {
                             found = true;
@@ -43,8 +41,6 @@ int hidden_singles(SudokuBoard *p_board)
                     found = false;
                     for (l = 0; l < 9; l++) 
                         if ((l != i) &&
-                            (p_board->data[l][j].num_candidates > 1) &&
-                            (p_board->data[l][j].fixed == false) &&
                             (p_board->data[l][j].candidates[k]>0)) 
                         {
                             found = true;
@@ -61,8 +57,6 @@ int hidden_singles(SudokuBoard *p_board)
                         Cell cell=*p_board->p_boxes[box][l] ;
                         
                         if ((l != box_cell) &&
-                            (cell.num_candidates > 1) &&
-                            (cell.fixed == false) &&
                             (cell.candidates[k]>0)) 
                         {
                             found = true;
@@ -72,67 +66,12 @@ int hidden_singles(SudokuBoard *p_board)
                     }
                     }
                     }
-                    int m,q;                   
+                   // int m;                   
                     if (!found) 
                     {
                         printf ("khong tim thay %d  %d  %d \n", k,i,j);
-                        for ( m=0;m<9;m++) // xu ly dong
-                            {
-                                if (p_board->data[i][m].candidates[k] ==1)
-                                {
-                                    p_board->data[i][m].candidates[k] = 0;
-                                    p_board->data[i][m].num_candidates--;
-                                    if (p_board->data[i][m].num_candidates==1)
-                                    {
-                                        for (q=0;q<9;q++)
-                                            if(p_board->data[i][m].candidates[q]==1)
-                                            {
-                                                p_board->data[i][m].value =q+1;
-                                            }
-                                        p_board->data[i][m].fixed =true;
-                                    }
-                                }
-                            }
-                        for ( m=0;m<9;m++) // xu ly dongcot
-                            {
-                                if (p_board->data[m][j].candidates[k] ==1)
-                                {
-                                    p_board->data[m][j].candidates[k] = 0;
-                                    p_board->data[m][j].num_candidates--;
-                                    if (p_board->data[m][j].num_candidates==1)
-                                    {
-                                        for (q=0;q<9;q++)
-                                            if(p_board->data[m][j].candidates[q]==1)
-                                            {
-                                                p_board->data[m][j].value =q+1;
-                                            }
-                                        p_board->data[m][j].fixed =true;
-                                    }
-                                }
-                            }                        
-                        for ( m=0;m<9;m++) // xu ly box
-                            {
-                                Cell cell2=*p_board->p_boxes[(i / 3) * 3 + j / 3][m] ;
-                               
-                                if (cell2.candidates[k] ==1)
-                                {
-                                    cell2.candidates[k] = 0;
-                                    cell2.num_candidates--;
-                                    if (cell2.num_candidates==1)
-                                    {
-                                        for (q=0;q<9;q++)
-                                            if(cell2.candidates[q]==1)
-                                            {
-                                                cell2.value =q+1;
-                                            }
-                                        cell2.fixed =true;
-                                    }
-                                }
-                            }
-                       
-                        
-                        for ( m=0;m<9;m++)
-                            p_board->data[i][j].candidates[m] = 0;
+                        //   for ( m=0;m<9;m++)
+                          //  p_board->data[i][j].candidates[m] = 0;
 
                         p_board->data[i][j].candidates[k] = 1;
                         p_board->data[i][j].value = k+1;
@@ -145,6 +84,20 @@ int hidden_singles(SudokuBoard *p_board)
                 } //for (int k = 0; k < 9; k++) 
             }
         }
+        }
+    }
+    for ( i = 0; i < BOARD_SIZE; i++) 
+    {
+        for (j = 0; j < BOARD_SIZE; j++) 
+        {
+            if (p_board->data[i][j].fixed) 
+            {
+                for (int k = 0; k < BOARD_SIZE; k++) 
+                {
+                    if (k!= p_board->data[i][j].value-1)
+                      p_board->data[i][j].cand idates[k]=0;
+                }
+            }
         }
     }
 

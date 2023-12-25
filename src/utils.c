@@ -220,3 +220,7 @@ void print_candidate_num(SudokuBoard *p_board)
         printf("\n");
     }
 }
+void taolao()
+{
+    printf("tao lao qua");
+}
