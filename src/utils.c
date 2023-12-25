@@ -220,7 +220,23 @@ void print_candidate_num(SudokuBoard *p_board)
         printf("\n");
     }
 }
-void taolao()
+void sosanhhaio(Cell cell1, Cell cell2, int *So_gtgn, int *Day_gtgn)
 {
-    printf("tao lao qua");
+    int count=0;
+   
+    for (int k = 0; k < BOARD_SIZE; k++)
+    
+    {
+        if ((cell1.candidates[k]==cell2.candidates[k]) && (cell2.candidates[k]!=0) )
+        {
+            Day_gtgn[count]=k;
+            
+            count++;
+            printf("%d  ", k);
+        }
+    }
+        *So_gtgn = count ;
 }
+
+
+
