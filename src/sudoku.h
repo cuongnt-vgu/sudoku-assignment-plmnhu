@@ -31,6 +31,17 @@ struct SudokuBoard_impl
 
 typedef struct SudokuBoard_impl SudokuBoard;
 
+struct cas_naked_pairs_impl
+{
+    int row1;
+    int col1;
+    int row2;
+    int col2;
+    int cas1;
+    int cas2;
+    
+};
+typedef struct cas_naked_pairs_impl cas_naked_pairs;
 void init_sudoku(SudokuBoard *p_board);
 void load_sudoku(SudokuBoard *p_board, char *input_text);
 bool apply_constraint(Cell **p_cells, int value);
@@ -57,3 +68,5 @@ int  XuLy_cell_row3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int n
 int  XuLy_cell_col3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int nx[]);
 int  XuLy_cell_box3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int nx[][5]);
 void print_cell(SudokuBoard *p_board,int row, int col);
+int pair_2cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int *cas1, int *cas2);
+int num_cas(SudokuBoard *p_board, cas_naked_pairs cas[],int *n_cas);
