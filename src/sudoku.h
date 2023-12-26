@@ -42,6 +42,20 @@ struct cas_naked_pairs_impl
     
 };
 typedef struct cas_naked_pairs_impl cas_naked_pairs;
+struct cas_naked_triples_impl
+{
+    int row1;
+    int col1;
+    int row2;
+    int col2;
+    int row3;
+    int col3;
+    int cas1;
+    int cas2;
+    int cas3;
+    
+};
+typedef struct cas_naked_triples_impl cas_naked_triples;
 void init_sudoku(SudokuBoard *p_board);
 void load_sudoku(SudokuBoard *p_board, char *input_text);
 bool apply_constraint(Cell **p_cells, int value);
