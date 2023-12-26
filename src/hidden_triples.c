@@ -5,14 +5,12 @@ int hidden_triples(SudokuBoard *p_board)
 {
     int count = 0;   
  
-    for (int i=0 ; i<2 ; i++)
+    for (int i=0 ; i<9 ; i++)
         for (int j=0; j<9 ; j++)
-            XuLy_Mot_cell3(p_board,i,j,&count);
-    for (int i=0 ; i<2 ; i++)
-        for (int j=0; j<9 ; j++)
-             print_cell(p_board,i, j);
-    printf("- so xu ly %d-----",count);
+            if (count==0)
+                XuLy_Mot_cell3(p_board,i,j,&count);
     
+     
     return count;
 }
 
