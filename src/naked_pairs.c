@@ -80,7 +80,7 @@ void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas)
         printf("xu ly  %d  %d  %d  %d  %d  %d \n", r1,c1,r2,c2, cas1, cas2);
         printf("xu ly  %d  %d  %d  %d   \n", r1_dau,c1_dau,r2_dau,c2_dau);
         // xu ly dongcot
-/*        if(r1==r2)
+        if(r1==r2)
         {
             printf("xu ly cot  %d  %d   \n",i, r1);
             for(j=0;j<BOARD_SIZE;j++)
@@ -104,7 +104,7 @@ void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas)
 
             }
         }
- */   
+    
         if(c1==c2) // xu ly dong
         {
             printf("xu ly dong  %d  %d   \n",i, c1);
@@ -133,10 +133,11 @@ void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas)
         {
             printf("xu ly khoi  %d  %d   \n",r1_dau, c1_dau);
             for(j=r1_dau;j<r1_dau+3;j++)
-                for(k=c1_dau;j<c1_dau+3;k++)
+                for(k=c1_dau;k<c1_dau+3;k++)
                 {
                     if(  ((j!=r1) || (k!=c1))   && ((j!=r2) || (k!=c2)))
                     {
+                        printf("xu ly khoi dong = %d  cot = %d  \n",j,k);
                         if(p_board->data[j][k].candidates[cas1]==1)
                         {
                             p_board->data[j][k].candidates[cas1]=0;
