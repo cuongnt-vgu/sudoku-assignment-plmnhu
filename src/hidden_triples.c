@@ -13,62 +13,69 @@ void  XuLy_Mot_cell3(SudokuBoard *p_board,int row, int col, int *count)
     if (p_board->data[row][col].num_candidates>1)
     {
         int n=-1,k;
+        int nx1[5],nx2[5];
+        bool Xuly=false;
         for (int i=0 ; i<7; i++)
             for (int j=i+1 ; j<8 ; j++)
                 for (int k=j+1 ; k<9 ; k++)
-            if (( p_board->data[row][col].candidates[i]!=0) &&( p_board->data[row][col].candidates[j]!=0) 
-                    && ( p_board->data[row][col].candidates[k]!=0))
-                {
-                    n=XuLy_cell_row(p_board,row,col,i,j,k);
-                    if (n>-1)
+                    if (( p_board->data[row][col].candidates[i]!=0) &&( p_board->data[row][col].candidates[j]!=0) 
+                            && ( p_board->data[row][col].candidates[k]!=0))
                     {
-                        *count= *count+1;
-                        p_board->data[row][col].num_candidates=2;
-                        p_board->data[row][n].num_candidates=2;
-                        for(k=0;k<9;k++)
-                            if((k!=i) && (k!=j))
-                            {
-                                p_board->data[row][col].candidates[k]=0;
-                                p_board->data[row][n].candidates[k]=0;
-                            }
-
-                       // printf(" dong -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
-                    }
-                    n=XuLy_cell_col(p_board,row,col,i,j,k);
-                    if (n>-1)
-                    {
-                        *count = *count +1;
-                        p_board->data[row][col].num_candidates=2;
-                        p_board->data[n][col].num_candidates=2;
-                        for(k=0;k<9;k++)
-                            if((k!=i) && (k!=j))
-                            {
-                                p_board->data[row][col].candidates[k]=0;
-                                p_board->data[n][col].candidates[k]=0;
-
-                            }
-                        
-                       printf(" cot -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
-                       // for(k=0;k<9;k++)
-                         //   printf("  %d ",p_board->data[row][col].candidates[k]);
-                        printf("\n");
-                    }
-                        
-                    n=XuLy_cell_box(p_board,row,col,i,j,k);
-                    if (n>-1)
-                    {
-                        *count = *count+1;
-                        p_board->data[row][col].num_candidates=2;
-                        p_board->data[n/9][n%9].num_candidates=2;
-                        for(k=0;k<9;k++)
-                            if((k!=i) && (k!=j))
+                        n=XuLy_cell_row(p_board,row,col,i,j,k,nx1);
+                        if (n>-1)
+                        {
+                            
+                        }
+                        n=XuLy_cell_col(p_board,row,col,i,j,k,nx1);
+                        if (n>-1)
+                        {
+                            
+                            for(l=0;l<9;l++)
+                                if((l!=i) && (l!=j)&& (l!=k))
                                 {
-                                    p_board->data[row][col].candidates[k]=0;
-                                    p_board->data[n/9][n%9].candidates[k]=0;
+                                    if (p_board->data[row][col].candidates[l]!=0)
+                                    {
+                                        p_board->data[row][col].candidates[l]=0;
+                                        p_board->data[row][col].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                    if (p_board->data[nx1[1]][col].candidates[l]!=0)
+                                    {
+                                        p_board->data[nx1[1]][col].candidates[l]=0;
+                                        p_board->data[nx1[1]][col].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                    if (p_board->data[nx1[2]][col].candidates[l]!=0)
+                                    {
+                                        p_board->data[nx1[2]][col].candidates[l]=0;
+                                        p_board->data[nx1[2]][col].num_candidates--;
+                                        Xuly=true;
+                                    }
                                 }
-                        //   printf(" box -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
+                            if(xuly) 
+                                *count = *count +1;
+                            
+                        //printf(" cot -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
+                        // for(k=0;k<9;k++)
+                            //   printf("  %d ",p_board->data[row][col].candidates[k]);
+                           // printf("\n");
+                        }
+                            
+                        n=XuLy_cell_box(p_board,row,col,i,j,k,nx2);
+                        if (n>-1)
+                        {
+                            *count = *count+1;
+                            p_board->data[row][col].num_candidates=2;
+                            p_board->data[n/9][n%9].num_candidates=2;
+                            for(k=0;k<9;k++)
+                                if((k!=i) && (k!=j))
+                                    {
+                                        p_board->data[row][col].candidates[k]=0;
+                                        p_board->data[n/9][n%9].candidates[k]=0;
+                                    }
+                            //   printf(" box -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
+                        }
                     }
-                }
     }
 }
 
