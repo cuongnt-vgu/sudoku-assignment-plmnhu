@@ -7,21 +7,10 @@ int naked_pairs(SudokuBoard *p_board)
    cas_naked_pairs cas[100];
    int n_cas,n;
    n=num_cas(p_board, cas , &n_cas);
-  /*  //int num_cas[100][6];
-    int cas1=-1,cas2=-1;
-    int r1,c1,r2,c2;
-    for (int i=0;i<80;i++)
-        for(int j=i+1;j<81;j++)
-        {
-            r1 = i/9;  c1 = i%9; r2=j/9;  c2 = j%9;
-            //   printf(" %d  %d  %d  %d \n", r1,c1,r2,c2);
-            if (pair_2cell(p_board,r1,c1,r2,c2,&cas1, &cas2 )==2)
-               printf(" %d  %d  %d  %d  %d  %d\n", r1,c1,r2,c2, cas1, cas2);
-              //  printf("   %d   \n ",pair_2cell(p_board,r1,c1,r2,c2));
-                // printf("   %d   \n ",pair_2cell(p_board,7,7,8,7));
-        }
-      */            
-    return 2;
+   for (int i=1; i<=n_cas ; i++)
+         printf(" %d  %d  %d  %d  %d  %d\n", cas[i].row1, cas[i].col1, cas[i].row2, cas[i].col2, cas[i].cas1, cas[i].cas2);
+    xuly_naked_pair(p_board, cas,n_cas);  
+    return n_cas;
 }
 int pair_2cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int *cas1, int *cas2)
 {
@@ -44,7 +33,7 @@ int pair_2cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int *c
     *cas1 = cas[0];
     *cas2 = cas[1];
     
-            return count;
+    return count;
 }
 
 int num_cas(SudokuBoard *p_board, cas_naked_pairs cas[],int *n_cas)
@@ -67,7 +56,7 @@ int num_cas(SudokuBoard *p_board, cas_naked_pairs cas[],int *n_cas)
                 cas[count].col2 = c2;
                 cas[count].cas1 = cas1;
                 cas[count].cas2 = cas2;
-                printf(" %d  %d  %d  %d  %d  %d\n", r1,c1,r2,c2, cas1, cas2);
+               // printf(" %d  %d  %d  %d  %d  %d\n", r1,c1,r2,c2, cas1, cas2);
 
                }
               
@@ -76,3 +65,94 @@ int num_cas(SudokuBoard *p_board, cas_naked_pairs cas[],int *n_cas)
     return count;
 }
 
+void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas)
+{
+    int r1,c1,r2,c2,cas1,cas2;
+    int r1_dau,c1_dau,r2_dau,c2_dau;
+    int i,j,k;
+    for (i=1; i<=n_cas;i++)
+    {
+        r1 = cas[i].row1;c1=cas[i].col1;
+        r2=cas[i].row2; c2= cas[i].col2;
+        cas1=cas[i].cas1; cas2 = cas[i].cas2;
+        r1_dau=(r1/3)*3; c1_dau = (c1/3)*3;
+        r2_dau = (r2/3)*3; c2_dau = (c2/3)*3;
+        printf("xu ly  %d  %d  %d  %d  %d  %d \n", r1,c1,r2,c2, cas1, cas2);
+        printf("xu ly  %d  %d  %d  %d   \n", r1_dau,c1_dau,r2_dau,c2_dau);
+        // xu ly dongcot
+/*        if(r1==r2)
+        {
+            printf("xu ly cot  %d  %d   \n",i, r1);
+            for(j=0;j<BOARD_SIZE;j++)
+            {
+                
+                if((j!=c1) && (j!=c2))
+                {
+                    if(p_board->data[r1][j].candidates[cas1]==1)
+                    {
+                        p_board->data[r1][j].candidates[cas1]=0;
+                        p_board->data[r1][j].num_candidates--;
+                        printf("xu ly cot %d  %d %d  \n",r1,j,cas2);
+                    }
+                    if(p_board->data[r1][j].candidates[cas2]==1)
+                    {
+                        p_board->data[r1][j].candidates[cas2]=0;
+                        p_board->data[r1][j].num_candidates--;
+                        printf("xu ly cot %d  %d %d  \n",r1,j,cas2);
+                    }
+                }
+
+            }
+        }
+ */   
+        if(c1==c2) // xu ly dong
+        {
+            printf("xu ly dong  %d  %d   \n",i, c1);
+            for(j=0;j<BOARD_SIZE;j++)
+            {
+                if((j!=r1) && (j!=r2))
+                {
+                    if(p_board->data[j][c1].candidates[cas1]==1)
+                    {
+                        p_board->data[j][c1].candidates[cas1]=0;
+                        p_board->data[j][c1].num_candidates--;
+                        printf("xu ly dong %d  %d %d  \n",j,c1,cas1);
+                    }
+                    if(p_board->data[j][c2].candidates[cas2]==1)
+                    {
+                        p_board->data[j][c2].candidates[cas2]=0;
+                        p_board->data[j][c2].num_candidates--;
+                        printf("xu ly dong %d  %d %d  \n",j,c1,cas2);
+                    }
+                }
+
+            }
+        }
+        
+        if((r1_dau==r2_dau) && (c1_dau==c2_dau)) // xu ly khoi
+        {
+            printf("xu ly khoi  %d  %d   \n",r1_dau, c1_dau);
+            for(j=r1_dau;j<r1_dau+3;j++)
+                for(k=c1_dau;j<c1_dau+3;k++)
+                {
+                    if(  ((j!=r1) || (k!=c1))   && ((j!=r2) || (k!=c2)))
+                    {
+                        if(p_board->data[j][k].candidates[cas1]==1)
+                        {
+                            p_board->data[j][k].candidates[cas1]=0;
+                            p_board->data[j][k].num_candidates--;
+                            printf("xu ly khoi %d  %d %d  \n",j,k,cas1);
+                        }
+                        if(p_board->data[j][k].candidates[cas2]==1)
+                        {
+                            p_board->data[j][k].candidates[cas2]=0;
+                            p_board->data[j][k].num_candidates--;
+                            printf("xu ly khoi %d  %d %d  \n",j,k,cas2);
+                        }
+                    }
+
+                }
+        }
+
+    }
+}
