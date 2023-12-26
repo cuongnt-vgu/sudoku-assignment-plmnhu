@@ -243,6 +243,14 @@ void r_c_box(int row, int col , int *n_box, int *n_cell )
     *n_box = (row / 3) * 3 + col / 3;
     *n_cell = (row % 3) * 3 + col % 3;
 }
-
+void print_cell(SudokuBoard *p_board,int row, int col)
+{
+    Cell cell = p_board->data[row][col];
+    printf("[%d][%d] num_candidates = %d value = %d fixed = %d --",row,col,cell.num_candidates,cell.value,cell.fixed);
+    for (int i=0; i<BOARD_SIZE ; i++)
+        printf(" %d ", cell.candidates[i]);
+    printf(" \n ");
+    
+}
 
 
