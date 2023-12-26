@@ -3,7 +3,14 @@
 #include <stdlib.h>
 int hidden_triples(SudokuBoard *p_board)
 {
-    return 0;
+    int count = 0;   
+ 
+    for (int i=0 ; i<9 ; i++)
+        for (int j=0; j<9 ; j++)
+            XuLy_Mot_cell3(p_board,i,j,&count);
+
+    
+    return count;
 }
 
 
@@ -24,7 +31,30 @@ void  XuLy_Mot_cell3(SudokuBoard *p_board,int row, int col, int *count)
                         n=XuLy_cell_row(p_board,row,col,i,j,k,nx1);
                         if (n>-1)
                         {
-                            
+                            for(l=0;l<9;l++)
+                                if((l!=i) && (l!=j)&& (l!=k))
+                                {
+                                    if (p_board->data[row][col].candidates[l]!=0)
+                                    {
+                                        p_board->data[row][col].candidates[l]=0;
+                                        p_board->data[row][col].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                    if (p_board->data[row]][nx1[1]].candidates[l]!=0)
+                                    {
+                                        p_board->data[row][nx1[1]].candidates[l]=0;
+                                        p_board->data[row][nx1[1]].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                    if (p_board->data[row]][nx1[2]].candidates[l]!=0)
+                                    {
+                                        p_board->data[row][nx1[2]].candidates[l]=0;
+                                        p_board->data[row][nx1[2]].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                }
+                            if(xuly) 
+                                *count = *count +1;                           
                         }
                         n=XuLy_cell_col(p_board,row,col,i,j,k,nx1);
                         if (n>-1)
@@ -64,15 +94,30 @@ void  XuLy_Mot_cell3(SudokuBoard *p_board,int row, int col, int *count)
                         n=XuLy_cell_box(p_board,row,col,i,j,k,nx2);
                         if (n>-1)
                         {
-                            *count = *count+1;
-                            p_board->data[row][col].num_candidates=2;
-                            p_board->data[n/9][n%9].num_candidates=2;
-                            for(k=0;k<9;k++)
-                                if((k!=i) && (k!=j))
+                            for(l=0;l<9;l++)
+                                if((l!=i) && (l!=j)&& (l!=k))
+                                {
+                                    if (p_board->data[row][col].candidates[l]!=0)
                                     {
-                                        p_board->data[row][col].candidates[k]=0;
-                                        p_board->data[n/9][n%9].candidates[k]=0;
+                                        p_board->data[row][col].candidates[l]=0;
+                                        p_board->data[row][col].num_candidates--;
+                                        Xuly=true;
                                     }
+                                    if (p_board->data[nx2[1,1]][nx2[1,2]].candidates[l]!=0)
+                                    {
+                                        p_board->data[nx2[1,1]][nx2[1,2]].candidates[l]=0;
+                                        p_board->data[nx2[1,1]][nx2[1,2]].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                    if (p_board->data[nx2[2,1]][nx2[2,2]].candidates[l]!=0)
+                                    {
+                                        p_board->data[nx2[2,1]][nx2[2,2]].candidates[l]=0;
+                                        p_board->data[nx2[2,1]][nx2[2,2]].num_candidates--;
+                                        Xuly=true;
+                                    }
+                                }
+                            if(xuly) 
+                                *count = *count +1;
                             //   printf(" box -- %d  %d  %d   %d   %d   \n", row,col,i,j,n);
                         }
                     }

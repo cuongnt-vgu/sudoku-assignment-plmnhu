@@ -52,3 +52,7 @@ void  XuLy_Mot_cell(SudokuBoard *p_board,int row, int col,int *count);
 int  XuLy_cell_row(SudokuBoard *p_board,int row,int col,int i,int j);
 int  XuLy_cell_col(SudokuBoard *p_board,int row,int col,int i,int j);
 int  XuLy_cell_box(SudokuBoard *p_board,int row,int col,int i,int j);
+void  XuLy_Mot_cell3(SudokuBoard *p_board,int row, int col, int *count);
+int  XuLy_cell_row3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int nx[]);
+int  XuLy_cell_col3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int nx[]);
+int  XuLy_cell_box3(SudokuBoard *p_board,int row,int col,int i,int j,int k,int nx[]);
