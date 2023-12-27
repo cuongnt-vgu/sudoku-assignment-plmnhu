@@ -5,8 +5,8 @@
 int naked_triples(SudokuBoard *p_board)
 {
    int cas1=-1, cas2=-1, cas3=-1;
-   //int r1=7,c1=1,r2=8,c2=4,r3=8,c3=5;
-   int r1=7,c1=1,r2=8,c2=4,r3=8,c3=5;
+   int r1=8,c1=1,r2=8,c2=4,r3=8,c3=5;
+  // int r1=0,c1=8,r2=1,c2=8,r3=2,c3=8;
    int n = pair_3cell(p_board,r1, c1,r2 , c2, r3, c3, &cas1, &cas2,&cas3);
    printf("%d  %d  %d  %d  %d  %d  %d  %d  %d  %d   ---",n, r1, c1,r2 , c2, r3, c3, cas1, cas2,cas3);
   /*
@@ -30,11 +30,12 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
     bool trong, ngoai;
     int j;
 
-  //  int rd1=(row1/3)*3 , cd1=(col1/3)*3, rd2=(row2/3)*3;
-  //  int cd2=(col2/3)*3 , rd3=(row3/3)*3 , cd3=(col3/3)*3;
+    int rd1=(row1/3)*3 , cd1=(col1/3)*3, rd2=(row2/3)*3;
+    int cd2=(col2/3)*3 , rd3=(row3/3)*3 , cd3=(col3/3)*3;
     if((n_cas1==1) || (n_cas2==1) || (n_cas3==1))
         return 0;
 /*
+    //tren cung mot dong
     if ((row1==row2) && (row2==row3))
         {
             for (int i=0; i<9 ; i++) //ghi chu i
@@ -66,7 +67,7 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
                 }
             }
         }
-    */
+    
     if(count==3)
     {
         *cas1 = cas[0];
@@ -114,7 +115,50 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
         *cas3 = cas[2];
         return count;
     }
-    /*
+   
+*/ 
+//tren cung mot khoi
+    count=0;
+    if ((rd1==rd2) && (rd2==rd3)&&(cd1==cd2) && (cd2==cd3))
+        {
+            for (int i=0; i<9 ; i++) //ghi chu i
+            {
+                trong= false;
+                ngoai = false;
+                for ( j=rd1;j< rd1+3;j++) //dong j
+                for (k=cd1 ;k< cd1+3 ; k++) // cot k
+                {
+                    n_cas= p_board->data[j][col1].num_candidates;
+                    
+                    if ((j!=row1) && (j!=row2) && (j!=row3) )
+                    {
+                        if ( p_board->data[j][col1].candidates[i]==1)
+                            ngoai=true;
+                    }
+                    if ((j==row1) || (j==row2) || (j==row3) )
+                    {
+                        if (p_board->data[j][col1].candidates[i]==1)
+                            trong=true;
+
+                    }
+
+                }
+                if((trong) && (!ngoai))
+                {
+                    cas[count]=i;
+                    count++;
+                    
+                }
+            }
+        }
+    if(count==3)
+    {
+        *cas1 = cas[0];
+        *cas2 = cas[1];
+        *cas3 = cas[2];
+        return count;
+    }
+/*
     {
        if(  ((row1==row2) && (row2==row3)) || ((col1==col2)&&(col2==col3))  || 
              ( (rd1==rd2) && (rd2==rd3) && (cd1==cd2) && (cd2==cd3)     )   )
