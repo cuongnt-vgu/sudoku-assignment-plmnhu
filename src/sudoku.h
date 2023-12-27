@@ -85,3 +85,4 @@ void print_cell(SudokuBoard *p_board,int row, int col);
 int pair_2cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int *cas1, int *cas2);
 int num_cas(SudokuBoard *p_board, cas_naked_pairs cas[],int *n_cas);
 void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas);
+int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int row3,int col3,int *cas1, int *cas2,int *cas3);
