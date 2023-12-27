@@ -6,9 +6,17 @@ int naked_triples(SudokuBoard *p_board)
 {
    int cas1=-1, cas2=-1, cas3=-1;
    int r1=8,c1=1,r2=8,c2=4,r3=8,c3=5;
-  // int r1=0,c1=8,r2=1,c2=8,r3=2,c3=8;
-   int n = pair_3cell(p_board,r1, c1,r2 , c2, r3, c3, &cas1, &cas2,&cas3);
-   printf("%d  %d  %d  %d  %d  %d  %d  %d  %d  %d   ---",n, r1, c1,r2 , c2, r3, c3, cas1, cas2,cas3);
+   //int r1=0,c1=8,r2=1,c2=8,r3=2,c3=8;
+  //int r1=0,c1=1,r2=1,c2=1,r3=1,c3=2;
+  for (int i=0;i<79;i++)
+        for(int j=i+1;j<80;j++)
+            for (int k=j+1;k<81;k++)
+        {
+            r1 = i/9;  c1 = i%9; r2=j/9;  c2 = j%9; r3=k/9 ; c3 =k%9;
+           int n = pair_3cell(p_board,r1, c1,r2 , c2, r3, c3, &cas1, &cas2,&cas3);
+            if (n==3)
+                printf("%d  %d  %d  %d  %d  %d  %d  %d  %d  %d   ---",n, r1, c1,r2 , c2, r3, c3, cas1, cas2,cas3);
+        }
   /*
    cas_naked_triples cas[100];
    int n_cas,n;
@@ -34,10 +42,11 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
     int cd2=(col2/3)*3 , rd3=(row3/3)*3 , cd3=(col3/3)*3;
     if((n_cas1==1) || (n_cas2==1) || (n_cas3==1))
         return 0;
-/*
+
     //tren cung mot dong
     if ((row1==row2) && (row2==row3))
         {
+            //printf("------------vao dong roi \n");
             for (int i=0; i<9 ; i++) //ghi chu i
             {
                 trong= false;
@@ -79,6 +88,7 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
     count=0;
     if ((col1==col2) && (col2==col3))
         {
+            //printf("------------vao cot roi \n");
             for (int i=0; i<9 ; i++) //ghi chu i
             {
                 trong= false;
@@ -116,11 +126,14 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
         return count;
     }
    
-*/ 
+ 
 //tren cung mot khoi
+   // printf("%d  %d  %d  %d  %d  %d  %d  %d  %d  %d   ---",n, r1, c1,r2 , c2, r3, c3, cas1, cas2,cas3);
+
     count=0;
     if ((rd1==rd2) && (rd2==rd3)&&(cd1==cd2) && (cd2==cd3))
         {
+            //printf("------------vao khoi roi \n");
             for (int i=0; i<9 ; i++) //ghi chu i
             {
                 trong= false;
@@ -130,11 +143,7 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
                 {
                     n_cas= p_board->data[j][k].num_candidates;
                     
-                    if ((j!=row1) && (j!=row2) && (j!=row3) )
-                    {
-                        if ( p_board->data[j][col1].candidates[i]==1)
-                            ngoai=true;
-                    }
+                    
                     if ( ((j==row1) && (k==col1)) || ((j==row2) && (k==col2)) || ((j==row3) && (k==col3)) )
                     {
                         if (p_board->data[j][k].candidates[i]==1)
@@ -144,7 +153,7 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
                     else
                     {
                         if (p_board->data[j][k].candidates[i]==1)
-                            trong=true;
+                            ngoai=true;
                     }
 
 
@@ -164,28 +173,8 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
         *cas3 = cas[2];
         return count;
     }
-/*
-    {
-       if(  ((row1==row2) && (row2==row3)) || ((col1==col2)&&(col2==col3))  || 
-             ( (rd1==rd2) && (rd2==rd3) && (cd1==cd2) && (cd2==cd3)     )   )
 
-       {
-           for (int i=0;i<9;i++)
-           
-               if ((p_board->data[row1][col1].candidates[i]==1) || (p_board->data[row2][col2].candidates[i]==1) 
-                    || (p_board->data[row3][col3].candidates[i]==1))
-                  {
-                    cas[count] = i;
-                    count++;
-                    if (count>3)
-                        return 0;
-                  }
-        }
-    }
-    *cas1 = cas[0];
-    *cas2 = cas[1];
-    *cas3 = cas[2];
-    */
+
     
     return count;
 }
