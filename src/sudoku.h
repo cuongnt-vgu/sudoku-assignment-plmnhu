@@ -88,3 +88,6 @@ void xuly_naked_pair(SudokuBoard *p_board, cas_naked_pairs cas[],int n_cas);
 int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int row3,int col3,int *cas1, int *cas2,int *cas3);
 int num_cas3(SudokuBoard *p_board, cas_naked_triples cas[],int *n_cas);
 void xuly_naked_triples(SudokuBoard *p_board, cas_naked_triples cas[],int n_cas);
+int pair_3cellh(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int row3,int col3,int *cas1, int *cas2,int *cas3);
+int num_cas3h(SudokuBoard *p_board, cas_naked_triples cas[],int *n_cas);
+void xuly_naked_triplesh(SudokuBoard *p_board, cas_naked_triples cas[],int n_cas);
