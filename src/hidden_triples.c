@@ -8,9 +8,10 @@ int hidden_triples(SudokuBoard *p_board)
    n=num_cas3h(p_board, cas , &n_cas);
    for (int i=1; i<=n_cas ; i++)
          printf(" %d  %d  %d  %d  %d  %d  %d  %d  %d \n", cas[i].row1, cas[i].col1, cas[i].row2, cas[i].col2, cas[i].row3,cas[i].col3, cas[i].cas1, cas[i].cas2, cas[i].cas3);
-    xuly_naked_triplesh(p_board, cas,n_cas); 
+    
+    xuly_naked_triplesh(p_board, cas,&n_cas); 
    
-    return 1;//n_cas;
+    return n_cas;
 }
 int pair_3cellh(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int row3,int col3,int *cas1, int *cas2,int *cas3)
 {
@@ -198,19 +199,21 @@ int num_cas3h(SudokuBoard *p_board, cas_naked_triples cas[],int *n_cas)
 }
 
 
-void xuly_naked_triplesh(SudokuBoard *p_board, cas_naked_triples cas[],int n_cas)
+void xuly_naked_triplesh(SudokuBoard *p_board, cas_naked_triples cas[],int *n_cas)
 {
     int r1,c1,r2,c2,r3,c3,cas1,cas2,cas3;
   //  int r1_dau,c1_dau,r2_dau,c2_dau;
     int i,j;
-    
-    for (i=1; i<=n_cas;i++)
+    bool xuly;
+    int n_xuly=0;
+    for (i=1; i<=*n_cas;i++)
     {
         r1 = cas[i].row1;c1=cas[i].col1;
         r2=cas[i].row2; c2= cas[i].col2;
         r3=cas[i].row3; c3= cas[i].col3;
         cas1=cas[i].cas1; cas2 = cas[i].cas2;cas3 = cas[i].cas3;
         printf("=========cac cas  %d  %d %d  \n",cas1, cas2,cas3);
+        xuly=false;
         for (j=0;j<BOARD_SIZE;j++) // 
         {
             if( (j!=cas1) && (j!=cas2) && (j!=cas3)  )
@@ -219,23 +222,28 @@ void xuly_naked_triplesh(SudokuBoard *p_board, cas_naked_triples cas[],int n_cas
                     {
                         p_board->data[r1][c1].candidates[j]=0;
                         p_board->data[r1][c1].num_candidates--;
-                        printf("xu ly cot %d  %d %d  \n",r1,c1,cas2);
+                       // printf("xu ly cot %d  %d %d  \n",r1,c1,cas2);
+                        xuly=true;
                     }
                 if(p_board->data[r2][c2].candidates[j]==1)
                     {
                         p_board->data[r2][c2].candidates[j]=0;
                         p_board->data[r2][c2].num_candidates--;
                         //printf("xu ly cot %d  %d %d  \n",r1,j,cas2);
+                        xuly=true;
                     }                   
                  if(p_board->data[r3][c3].candidates[j]==1)
                     {
                         p_board->data[r3][c3].candidates[j]=0;
                         p_board->data[r3][c3].num_candidates--;
                         //printf("xu ly cot %d  %d %d  \n",r1,j,cas2);
+                        xuly=true;
                     }                                      
             }
         }
-        
+        if(xuly) 
+            n_xuly++;
 
     }
+    *n_cas=n_xuly;
 }
