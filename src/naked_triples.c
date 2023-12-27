@@ -126,21 +126,27 @@ int pair_3cell(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int ro
                 trong= false;
                 ngoai = false;
                 for ( j=rd1;j< rd1+3;j++) //dong j
-                for (k=cd1 ;k< cd1+3 ; k++) // cot k
+                for (int k=cd1 ;k< cd1+3 ; k++) // cot k
                 {
-                    n_cas= p_board->data[j][col1].num_candidates;
+                    n_cas= p_board->data[j][k].num_candidates;
                     
                     if ((j!=row1) && (j!=row2) && (j!=row3) )
                     {
                         if ( p_board->data[j][col1].candidates[i]==1)
                             ngoai=true;
                     }
-                    if ((j==row1) || (j==row2) || (j==row3) )
+                    if ( ((j==row1) && (k==col1)) || ((j==row2) && (k==col2)) || ((j==row3) && (k==col3)) )
                     {
-                        if (p_board->data[j][col1].candidates[i]==1)
+                        if (p_board->data[j][k].candidates[i]==1)
                             trong=true;
 
                     }
+                    else
+                    {
+                        if (p_board->data[j][k].candidates[i]==1)
+                            trong=true;
+                    }
+
 
                 }
                 if((trong) && (!ngoai))
