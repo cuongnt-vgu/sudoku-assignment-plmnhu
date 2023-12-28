@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+ffffffff
 
 int hidden_singles(SudokuBoard *p_board)
 {
