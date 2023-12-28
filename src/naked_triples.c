@@ -13,13 +13,13 @@ int naked_triples(SudokuBoard *p_board)
     //r1 = 0;  c1 = 3;  r2=0;  c2 = 5; r3=0 ; c3 =8;
     // r1 = 0;  c1 = 8; r2=1;  c2 = c1; r3=2 ; c3 =c1;
  //   r1 = 2;  c1 = 0; r2=0;  c2 = 1 ; r3=1 ; c3 =1;
- //   p_board->data[8][4].candidates[7]=0;
-  //  p_board->data[8][5].candidates[7]=0;
-  //  p_board->data[8][5].candidates[1]=0;
-  // p_board->data[8][5].candidates[4]=0;
-  //  p_board->data[8][5].num_candidates=3;
-  //   p_board->data[8][4].num_candidates=3;
-  //   p_board->data[8][7].candidates[2]=1;
+    p_board->data[8][4].candidates[7]=0;
+   p_board->data[8][5].candidates[7]=0;
+   p_board->data[8][5].candidates[1]=0;
+  p_board->data[8][5].candidates[4]=0;
+   p_board->data[8][5].num_candidates=3;
+    p_board->data[8][4].num_candidates=3;
+ //   p_board->data[8][7].candidates[2]=1;
 
  //   count= Threecellnaker(p_board,r1,c1,r2,c2,r3,c3,&cas1, &cas2,&cas3 );
   //  printf("    %d  %d  %d  %d  %d  %d  %d  %d  %d  %d\n",count, r1,c1,r2,c2,r3,c3, cas1, cas2,cas3);
