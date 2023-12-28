@@ -15,7 +15,7 @@ int hidden_triples(SudokuBoard *p_board)
 }
 int pair_3cellh(SudokuBoard *p_board,int row1, int col1,int row2, int col2,int row3,int col3,int *cas1, int *cas2,int *cas3)
 {
-    int count=0;
+    int count=0; /xnxnnxn
     int n_cas=0;
     int cas[4];
     int n_cas1 = p_board->data[row1][col1].num_candidates;
