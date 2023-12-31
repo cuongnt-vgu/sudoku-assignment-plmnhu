@@ -1,19 +1,17 @@
 #pragma once
 
 #include "sudoku.h"
-
+int hidden_singles(SudokuBoard *p_board);
 typedef struct HiddenSingle_impl
 {
-    Cell *p_cell;
-    int value;
+    int row;
+    int col;
+    int cad;
+    
 } HiddenSingle;
+// kiem tra cell(x,y) cos chua thuoc tinh xuat hien duy nhat khong
+int check__hidden_single(SudokuBoard *p_board,int row, int col) ;
+//giai quyet 
+void sol__hidden_single(SudokuBoard *p_board,HiddenSingle cas[] , int num_cas) ;
 
-// find hidden single values (the value that is unique among all the candidates for a row, a collumn, or a box)
-int find_hidden_single_values(Cell **p_cells, int *hidden_single_values);
 
-// find hidden single cells in a row, in a collumn or in a box
-void find_hidden_single(Cell **p_cells, HiddenSingle *p_hidden_singles,
-                        int *p_counter);
-
-// find hidden single cells in a board, return the number of hidden single cells
-int hidden_singles(SudokuBoard *p_board);
