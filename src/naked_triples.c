@@ -10,7 +10,7 @@ int naked_triples(SudokuBoard *p_board)
    n=num_cas3(p_board, cas , &n_cas);
 
    for (int i=1; i<=n_cas ; i++)
-        printf(" cac truong hop tim thay    %d  %d  %d  %d  %d  %d  %d  %d  %d \n", cas[i].row1, cas[i].col1, cas[i].row2, cas[i].col2, cas[i].row3,cas[i].col3, cas[i].cas1, cas[i].cas2, cas[i].cas3);
+        printf(" cac truongw hop tim thay    %d  %d  %d  %d  %d  %d  %d  %d  %d \n", cas[i].row1, cas[i].col1, cas[i].row2, cas[i].col2, cas[i].row3,cas[i].col3, cas[i].cas1, cas[i].cas2, cas[i].cas3);
    xuly_naked_triples(p_board, cas,n_cas); 
    
     return n_cas;
